@@ -9,15 +9,6 @@ from MoaiPipelineManager import Manager
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def on_fit_epoch_end(trainer):
-    numeric_metrics = {}
-    for k, v in trainer.metrics.items():
-        # float로 변환 가능한 값만 따로 모음
-        if isinstance(v, (float, int)):
-            numeric_metrics[k] = v
-    # 이제 numeric_metrics 딕셔너리만 TensorBoard로 로깅
-    _log_scalars(numeric_metrics, trainer.epoch + 1)
-
 def get_args():
     parser = argparse.ArgumentParser()
 
@@ -62,8 +53,6 @@ def main(args):
         
 
     model.train(**ARGS)
-
-    model.add_callback("on_fit_epoch_end", on_fit_epoch_end)
 
     # weights 폴더를 training_result 폴더로 이동
     training_result_path = manager.get_training_result_folder_path()
