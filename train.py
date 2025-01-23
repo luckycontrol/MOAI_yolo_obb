@@ -15,7 +15,7 @@ def get_args():
     parser.add_argument("--project", default="20250115", type=str)
     parser.add_argument("--subproject", default="test_sub", type=str)
     parser.add_argument("--task", default="test_obb", type=str)
-    parser.add_argument("--version", default="v3", type=str)
+    parser.add_argument("--version", default="v4", type=str)
 
     args = parser.parse_args()
 

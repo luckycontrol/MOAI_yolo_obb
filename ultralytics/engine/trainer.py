@@ -658,17 +658,9 @@ class BaseTrainer:
 
     def save_metrics(self, metrics):
         """Saves training metrics to a CSV file."""
-        remain_keys = ["epoch", "metrics/mAP50(B)", "time"]
-        filtered_metrics = {k: v for k, v in metrics.items() if k in remain_keys}
-
-        keys, vals = list(filtered_metrics.keys()), list(filtered_metrics.values())
-        n = len(filtered_metrics) + 2  # number of cols
-        s = "" 
-        header = (("%20s," * n) % tuple(["epoch"] + keys + ["time"])).rstrip(",") + "\n"
+        s = "" if not self.csv.exists() else None
+        header = (("%20s," * 3) % tuple(["epoch", "metrics/mAP50", "time"])).rstrip(",") + "\n"
         s += header
-
-        t = time.time() - self.epoch_time_start
-        t_str = f"{int(t // 3600):02d}:{int((t % 3600) // 60):02d}:{int(t % 60):02d}"
 
         # 5) 남은 학습 시간(remaining) 계산
         #    - 지금까지 걸린 총 시간 / 진행된 에폭 수 => 에폭당 평균 소요 시간
@@ -694,15 +686,9 @@ class BaseTrainer:
                     with open(self.csv, "a") as f:
                         if s:
                             f.write(s)
-
-                        csv_values = []
-                        for val in vals:
-                            csv_values.append(f"{val:20.5g}")
-
-                        csv_values.append(remain_str)
                     
                         epoch_str = f"{self.epoch:20.5g}"
-                        line = epoch_str + "," + ",".join(csv_values) + "\n"
+                        line = epoch_str + "," + f"{metrics['metrics/mAP50(B)']:20.5g}" + "," + remain_str + "\n"
 
                         f.write(line)
                 break
