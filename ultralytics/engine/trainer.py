@@ -659,7 +659,7 @@ class BaseTrainer:
     def save_metrics(self, metrics):
         """Saves training metrics to a CSV file."""
         s = "" if not self.csv.exists() else None
-        header = (("%20s," * 3) % tuple(["epoch", "metrics/mAP50", "time"])).rstrip(",") + "\n"
+        header = (("%20s," * 5) % tuple(["epoch", "time", "metrics/mAP50", "metrics/precision", "metrics/recall"])).rstrip(",") + "\n"
         s += header
 
         # 5) 남은 학습 시간(remaining) 계산
@@ -688,7 +688,10 @@ class BaseTrainer:
                             f.write(s)
                     
                         epoch_str = f"{self.epoch:20.5g}"
-                        line = epoch_str + "," + f"{metrics['metrics/mAP50(B)']:20.5g}" + "," + remain_str + "\n"
+                        map_str = f"{metrics['metrics/mAP50(B)']:20.5g}"
+                        precision_str = f"{metrics['metrics/precision(B)']:20.5g}"
+                        recall_str = f"{metrics['metrics/recall(B)']:20.5g}"
+                        line = epoch_str + "," + remain_str + "," + map_str + "," + precision_str + "," + recall_str + "\n"
 
                         f.write(line)
                 break

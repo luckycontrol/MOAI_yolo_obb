@@ -2,6 +2,7 @@ import os
 import argparse
 import torch
 import shutil
+import yaml
 
 from ultralytics import YOLO
 
@@ -23,6 +24,15 @@ def get_args():
 
 def main(args):
     manager = Manager(**vars(args))
+
+    data_path = manager.get_data_yaml_path()
+    with open(data_path, "r+") as f:
+        data = yaml.safe_load(f)
+        data["train"] = f"{manager.get_train_dataset_path()}/train/images"
+        data["val"] = f"{manager.get_train_dataset_path()}/valid/images"
+
+        f.seek(0)
+        yaml.dump(data, f)
 
     hyp = manager.get_hyp_yaml()
     
