@@ -660,7 +660,9 @@ class BaseTrainer:
         """Saves training metrics to a CSV file."""
         s = "" if not self.csv.exists() else None
         header = (("%20s," * 5) % tuple(["epoch", "time", "metrics/mAP50", "metrics/precision", "metrics/recall"])).rstrip(",") + "\n"
-        s += header
+
+        if s:
+            s += header
 
         # 5) 남은 학습 시간(remaining) 계산
         #    - 지금까지 걸린 총 시간 / 진행된 에폭 수 => 에폭당 평균 소요 시간
