@@ -659,9 +659,8 @@ class BaseTrainer:
     def save_metrics(self, metrics):
         """Saves training metrics to a CSV file."""
         s = "" if not self.csv.exists() else None
-        header = (("%20s," * 5) % tuple(["epoch", "time", "metrics/mAP50", "metrics/precision", "metrics/recall"])).rstrip(",") + "\n"
-
-        if s:
+        if not self.csv.exists(): 
+            header = (("%23s," * 5 % tuple(["epoch", "time", "metrics/mAP_0.5", "metrics/precision", "metrics/recall"])).rstrip(",") + "\n")  # header
             s += header
 
         # 5) 남은 학습 시간(remaining) 계산
