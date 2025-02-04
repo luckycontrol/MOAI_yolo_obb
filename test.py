@@ -2,6 +2,7 @@ import os
 import argparse
 import torch
 import shutil
+import yaml
 
 from ultralytics import YOLO
 
