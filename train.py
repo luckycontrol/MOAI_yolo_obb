@@ -58,6 +58,15 @@ def main(args):
     ARGS['optimizer'] = 'AdamW'
     ARGS['device'] = DEVICE
 
+    if ARGS['train_ratio']:
+        ARGS.pop('train_ratio')
+    
+    if ARGS['use_valid']:
+        ARGS.pop('use_valid')
+
+    if ARGS['valid_ratio']:
+        ARGS.pop('valid_ratio')
+
     model.train(**ARGS)
 
     # weights 폴더를 training_result 폴더로 이동
