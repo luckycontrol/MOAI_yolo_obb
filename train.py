@@ -58,13 +58,13 @@ def main(args):
     ARGS['optimizer'] = 'AdamW'
     ARGS['device'] = DEVICE
 
-    if ARGS['train_ratio']:
+    if 'train_ratio' in ARGS:
         ARGS.pop('train_ratio')
     
-    if ARGS['use_valid']:
+    if 'use_valid' in ARGS:
         ARGS.pop('use_valid')
 
-    if ARGS['valid_ratio']:
+    if 'valid_ratio' in ARGS:
         ARGS.pop('valid_ratio')
 
     model.train(**ARGS)
