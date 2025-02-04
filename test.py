@@ -79,7 +79,7 @@ def main(args):
 
         with open(save_path + "/" + new_filename, "w") as f:
             for content in result_content:
-                f.write(f"{content[0]} {content[1]} {content[2]} {content[3]} {content[4]} {content[5]}\n")
+                f.write(f"{content[0]} {content[1]} {content[2]} {content[3]} {content[4]} {content[5]} {content[6]}\n")
 
 
 if __name__ == '__main__':
