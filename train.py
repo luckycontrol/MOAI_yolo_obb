@@ -70,9 +70,9 @@ def main(args):
     model.train(**ARGS)
 
     # weights 폴더를 training_result 폴더로 이동
-    training_result_path = manager.get_training_result_folder_path()
-    weights_folder_path = manager.get_weight_folder_path()
-    shutil.move(f"{training_result_path}/weights", weights_folder_path)
+    # training_result_path = manager.get_training_result_folder_path()
+    # weights_folder_path = manager.get_weight_folder_path()
+    # shutil.move(f"{training_result_path}/weights", weights_folder_path)
 
 if __name__ == '__main__':
     args = get_args()
