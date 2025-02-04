@@ -22,12 +22,17 @@ def main(args):
     manager = Manager(**vars(args))
 
     weight_path = manager.get_best_weight_path()
+    hyp_yaml_path = manager.get_hyp_yaml_path()
+    with open(hyp_yaml_path, "r") as f:
+        hyp = yaml.safe_load(f)
+
     model = YOLO(weight_path)
 
     ARGS = {
         'project'     : f"{manager.location}/{manager.project}/{manager.subproject}/{manager.task}/{manager.version}",
         'name'        : "inference_result",
         'source'      : manager.get_test_dataset_path(),
+        'imgsz'       : hyp['imgsz'],
         'device'      : DEVICE,
         'conf'        : 0.1,
         'save_txt'    : False,
