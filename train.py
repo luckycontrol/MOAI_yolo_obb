@@ -36,9 +36,15 @@ def main(args):
     with open(data_path, "w") as f:
         yaml.dump(data, f)
 
+    unused_augment = ["degrees", "translate", "shear", "perspective", "mixup", "copy_paste", "erasing", "crop_fraction"]
     hyp = manager.get_hyp_yaml()
+    for k in unused_augment:
+        hyp[k] = 0
     
-    weights = hyp['weights']
+    with open(manager.get_hyp_yaml_path(), "w") as f:
+        yaml.dump(hyp, f)
+
+    weights = hyp.get("weights")
     model = YOLO(f"{os.getcwd()}/weights/yolo11{weights}.pt")
 
     ARGS = {}
