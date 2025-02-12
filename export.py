@@ -2,7 +2,10 @@ import argparse
 import yaml
 
 from ultralytics import YOLO
+import ultralytics.utils as utils
 from MoaiPipelineManager import Manager
+
+utils.ONLINE = False
 
 def get_args():
     parser = argparse.ArgumentParser()

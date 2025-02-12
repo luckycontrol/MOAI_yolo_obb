@@ -5,9 +5,11 @@ import shutil
 import yaml
 
 from ultralytics import YOLO
+from ultralytics import utils
 
 from MoaiPipelineManager import Manager
 
+utils.ONLINE = False
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_args():
